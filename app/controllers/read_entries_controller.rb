@@ -1,0 +1,2 @@
+class ReadEntriesController < ApplicationController
+end
