@@ -9,8 +9,8 @@ gem 'puma', '~> 3.11'
 gem 'devise'
 # gem 'responders'
 gem 'faker'
-
-# gem 'redis', '~> 4.0'
+gem 'omniauth'
+gem 'omniauth-facebook'
 gem 'rack-cors'
 
 gem 'bootsnap', '>= 1.1.0', require: false

@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Login from '../Login/Login';
 
-const Header = () => {
-  // TODO: style header
-  return(
-    <div>
-      <Link to={"/add-book"}>Add Book</Link>
-      HEADER
-    </div>
-  )
+class Header extends Component {
+// TODO make pure component
+// TODO: style header
+  render() {
+    return(
+      <div>
+        HEADER
+        <Link to={"/add-book"}>Add Book</Link>
+        <Login />
+      </div>
+    )
+  }
 }
 
 export default Header;
