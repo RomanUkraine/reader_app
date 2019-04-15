@@ -1,8 +1,21 @@
 class BooksController < ApplicationController
   def index
     books = Book.all
-    respond_with books
+    render json: books
   end
 
-  # allow user to add a book and make it public for everyone
+  def create
+    book = Book.new(book_params)
+    if book.save
+      render json: book
+    else
+      render json: { error: book.errors.full_messages }
+    end
+  end
+
+  private
+
+    def book_params
+      params.require(:book).permit(:title, :description, :author)
+    end
 end

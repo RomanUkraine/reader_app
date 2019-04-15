@@ -11,12 +11,7 @@ class Books extends Component {
 
   componentDidMount() {
     // TODO: add BASE_URL variable
-    axios.get(`http://localhost:3000/books.json`, {
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
-
-    }})
+    axios.get(`http://localhost:3000/books.json`)
       .then(res => {
         const books = res.data;
         this.setState({ books });

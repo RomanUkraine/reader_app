@@ -7,13 +7,11 @@ gem 'rails', '~> 5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'devise'
-gem "responders"
-
+# gem 'responders'
 gem 'faker'
 
-# gem 'jbuilder', '~> 2.5'
 # gem 'redis', '~> 4.0'
-# gem 'rack-cors'
+gem 'rack-cors'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
