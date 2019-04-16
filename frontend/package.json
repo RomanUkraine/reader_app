@@ -8,6 +8,9 @@
     "react": "^16.8.6",
     "react-bootstrap": "^1.0.0-beta.6",
     "react-dom": "^16.8.6",
+    "react-facebook": "^8.0.4",
+    "react-facebook-login": "^4.1.1",
+    "react-facebook-sdk": "^1.1.1",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8"
   },

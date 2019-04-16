@@ -4,6 +4,7 @@ class RegistrationsController < Devise::RegistrationsController
 
     if user.persisted?
       sign_in user, event: :authentication
+      render json: user
     else
       render json: { user: "already signed in" }
     end

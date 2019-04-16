@@ -9,6 +9,7 @@ class Header extends Component {
     return(
       <div>
         HEADER
+        <Link to={"/"}>Home</Link>
         <Link to={"/add-book"}>Add Book</Link>
         <Login />
       </div>
