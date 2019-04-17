@@ -5647,6 +5647,16 @@ istanbul-reports@^1.5.1:
   dependencies:
     handlebars "^4.0.3"
 
+j-toker@^0.0.10-beta3:
+  version "0.0.10-beta3"
+  resolved "https://registry.yarnpkg.com/j-toker/-/j-toker-0.0.10-beta3.tgz#37380689d5d7663e50b741be6c4639b1792d04e7"
+  integrity sha1-NzgGidXXZj5Qt0G+bEY5sXktBOc=
+  dependencies:
+    jquery ">1.11.2"
+    jquery-deparam "^0.1.0"
+    jquery.cookie "^1.4.1"
+    pubsub-js "^1.5.2"
+
 jest-changed-files@^23.4.2:
   version "23.4.2"
   resolved "https://registry.yarnpkg.com/jest-changed-files/-/jest-changed-files-23.4.2.tgz#1eed688370cd5eebafe4ae93d34bb3b64968fe83"
@@ -5989,6 +5999,26 @@ joi@^11.1.1:
     hoek "4.x.x"
     isemail "3.x.x"
     topo "2.x.x"
+
+jquery-deparam@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/jquery-deparam/-/jquery-deparam-0.1.0.tgz#eaa60c1699fab7637d1acb8d2a08c72d095a0b96"
+  integrity sha1-6qYMFpn6t2N9GsuNKgjHLQlaC5Y=
+
+jquery-deparam@^0.5.3:
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/jquery-deparam/-/jquery-deparam-0.5.3.tgz#51f937c448175445499081b87bf32b241b1e2693"
+  integrity sha1-Ufk3xEgXVEVJkIG4e/MrJBseJpM=
+
+jquery.cookie@^1.4.1:
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/jquery.cookie/-/jquery.cookie-1.4.1.tgz#d63dce209eab691fe63316db08ca9e47e0f9385b"
+  integrity sha1-1j3OIJ6raR/mMxbbCMqeR+D5OFs=
+
+jquery@>1.11.2, jquery@^3.4.0:
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.4.0.tgz#8de513fa0fa4b2c7d2e48a530e26f0596936efdf"
+  integrity sha512-ggRCXln9zEqv6OqAGXFEcshF5dSBvCkzj6Gm2gzuR5fWawaX8t7cxKVkkygKODrDAzKdoYw3l/e3pm3vlT4IbQ==
 
 js-levenshtein@^1.1.3:
   version "1.1.4"
@@ -8288,6 +8318,11 @@ public-encrypt@^4.0.0:
     parse-asn1 "^5.0.0"
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
+
+pubsub-js@^1.5.2:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/pubsub-js/-/pubsub-js-1.7.0.tgz#eca97f9a4217bef62b2d3aaa1552005260cc2e49"
+  integrity sha512-Pb68P9qFZxnvDipHMuj9oT1FoIgBcXJ9C9eWdHCLZAnulaUoJ3+Y87RhGMYilWpun6DMWVmvK70T4RP4drZMSA==
 
 pump@^2.0.0:
   version "2.0.1"

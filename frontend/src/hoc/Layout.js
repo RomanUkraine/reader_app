@@ -5,11 +5,12 @@ import Footer from '../components/Footer/Footer';
 
 
 class Layout extends Component {
+  // make pure
   render() {
     return(
       <div>
-        <Header />
-        {this.props.children}
+        <Header/>
+          {this.props.children}
         <Footer />
       </div>
     )

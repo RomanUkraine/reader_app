@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import FacebookLogin from 'react-facebook-login';
-import axios from 'axios';
 
 class Login extends Component {
+  // TODO make pure
   render() {
-
-    const responseFacebook = (response) => {
-      axios.post('http://localhost:3000/users', response)
-      .then(response => {
-        console.log(response)
-      })
-    }
-
     return (
       <div>
         <FacebookLogin
@@ -20,7 +12,7 @@ class Login extends Component {
           fields="first_name,last_name,email"
           // onClick={componentClicked}
           responseType="code"
-          callback={responseFacebook}
+          callback={this.props.handleChange}
         />
       </div>
     );

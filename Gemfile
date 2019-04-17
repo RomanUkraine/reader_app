@@ -6,12 +6,14 @@ ruby '2.3.7'
 gem 'rails', '~> 5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
-gem 'devise'
 # gem 'responders'
 gem 'faker'
+gem 'rack-cors'
+
 gem 'omniauth'
 gem 'omniauth-facebook'
-gem 'rack-cors'
+gem 'devise'
+gem 'devise_token_auth'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 
