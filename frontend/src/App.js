@@ -7,11 +7,12 @@ import Home from './components/Home/Home';
 import Books from './components/Books/Books';
 import Auth from 'j-toker';
 import $ from 'jquery'
+import { BASE_URL } from './helpers';
 
 import './App.css';
 
 Auth.configure({
-  apiUrl: 'http://localhost:3000',
+  apiUrl: `${BASE_URL}`,
   tokenValidationPath: '/auth/validate_token',
   authProviderPaths: {
     facebook:  '/auth/facebook'

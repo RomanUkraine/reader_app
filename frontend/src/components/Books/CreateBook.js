@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import axios from 'axios';
+import { BASE_URL } from '../../helpers';
 
 class CreateBook extends Component {
 constructor(props) {
@@ -31,7 +32,7 @@ constructor(props) {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost:3000/books', {
+    axios.post(`${BASE_URL}/books`, {
         title: this.state.title,
         author: this.state.author,
         description: this.state.description
