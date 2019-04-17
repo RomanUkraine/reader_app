@@ -15,10 +15,10 @@ Auth.configure({
   apiUrl: `${BASE_URL}`,
   tokenValidationPath: '/auth/validate_token',
   authProviderPaths: {
-    facebook:  '/auth/facebook'
+    facebook:  '/omniauth/facebook'
   },
   handleLoginResponse: (resp) => {
-    return resp.data;
+    console.log(resp.data)
   },
 
   handleTokenValidationResponse: (resp) => {
