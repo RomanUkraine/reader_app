@@ -1,12 +1,30 @@
-class RegistrationsController < Devise::RegistrationsController
-  def create
-    user = User.from_omniauth(params)
+# class RegistrationsController < Devise::RegistrationsController
+#   def create
+#     user = User.from_omniauth(params)
 
-    if user.persisted?
-      sign_in user, event: :authentication
-      render json: user
-    else
-      render json: { user: "already signed in" }
-    end
-  end
-end
+#     # if current_user
+#     #   render json: current_user
+#     # elsif current_user.nil?
+#     #   render json: { user: 'not authenticated' }
+#     # else
+#     #   sign_in user, event: :authentication
+#     #   render json: user
+#     # end
+
+
+
+
+#     if user.persisted?
+#       sign_in user, event: :authentication
+
+# binding.pry
+
+#       render json: user
+#     else
+
+
+#       sign_in user, event: :authentication
+#       render json: user
+#     end
+#   end
+# end
