@@ -34,7 +34,7 @@ render() {
 
 
   return (
-    <Layout user={console.log(this.props.user)}>
+    <Layout user={this.props.user}>
         <Switch>
           <Route path="/books" exact component={Books} />
           <Route path="/add-book" exact component={CreateBook} />

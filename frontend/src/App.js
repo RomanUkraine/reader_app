@@ -6,6 +6,7 @@ import axios from 'axios';
 import Home from './components/Home/Home';
 import Books from './components/Books/Books';
 import Auth from 'j-toker';
+import PubSub from 'pubsub-js'
 import $ from 'jquery'
 import { BASE_URL } from './helpers';
 
@@ -17,7 +18,15 @@ Auth.configure({
   authProviderPaths: {
     facebook:  '/omniauth/facebook'
   },
-  handleLoginResponse: (resp) => {
+  // handleLoginResponse: (resp) => {
+  //   debugger;
+  //   console.log(resp.data)
+  // },
+
+  handleTokenValidationResponse(resp) {
+
+    // https://github.com/lynndylanhurley/j-toker/issues/10
+    PubSub.publish("auth.validation.success", resp.data)
     console.log(resp.data)
   },
 
@@ -26,6 +35,9 @@ Auth.configure({
   },
 
 });
+
+$.ajaxSetup({beforeSend: Auth.appendAuthHeaders})
+$(document).ajaxComplete(Auth.updateAuthCredentials)
 
 class App extends Component {
 
@@ -36,11 +48,20 @@ class App extends Component {
         user: {}
       };
   }
-  componentDidMount() {
-    Auth.oAuthSignIn({
-      provider: 'facebook',
-      params: {resource_class: 'User'}
-    })
+
+  componentWillMount() {
+    PubSub.subscribe('auth', function() {
+      this.setState({user: Auth.user})
+    }.bind(this))
+  }
+
+  // componentDidMount() {
+  //   Auth.oAuthSignIn({
+  //     provider: 'facebook',
+  //     params: {resource_class: 'User'}
+  //   }).then((resp) => {
+  //       console.log(resp)
+  //   })
 
     // Auth.validateToken()
     //   .then(function(user) {
@@ -55,7 +76,7 @@ class App extends Component {
 //  .then(resp => {
 //    debugger;
 //  })
-  }
+  // }
 
   // handleAuthChange = (response) => {
   //   axios.post('http://localhost:3000/users', response)
