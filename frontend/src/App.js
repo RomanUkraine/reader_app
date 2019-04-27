@@ -1,106 +1,65 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import Routes from './routes';
-import Login from './components/Login/Login'
 import axios from 'axios';
 import Home from './components/Home/Home';
 import Books from './components/Books/Books';
-import Auth from 'j-toker';
-import PubSub from 'pubsub-js'
-import $ from 'jquery'
-import { BASE_URL } from './helpers';
+// import { BASE_URL } from './helpers';
+import queryString from 'query-string';
 
 import './App.css';
 
-Auth.configure({
-  apiUrl: `${BASE_URL}`,
-  tokenValidationPath: '/auth/validate_token',
-  authProviderPaths: {
-    facebook:  '/omniauth/facebook'
-  },
-  // handleLoginResponse: (resp) => {
-  //   debugger;
-  //   console.log(resp.data)
-  // },
-
-  handleTokenValidationResponse(resp) {
-
-    // https://github.com/lynndylanhurley/j-toker/issues/10
-    PubSub.publish("auth.validation.success", resp.data)
-    console.log(resp.data)
-  },
-
-  handleTokenValidationResponse: (resp) => {
-    return resp.data;
-  },
-
-});
-
-$.ajaxSetup({beforeSend: Auth.appendAuthHeaders})
-$(document).ajaxComplete(Auth.updateAuthCredentials)
-
 class App extends Component {
+  constructor(props) {
+    super(props);
 
-    constructor(props) {
-      super(props);
-
-      this.state = {
-        user: {}
-      };
+    this.state = {
+      user: {},
+      isAuthenticated: false
+    };
   }
 
-  componentWillMount() {
-    PubSub.subscribe('auth', function() {
-      this.setState({user: Auth.user})
-    }.bind(this))
+  componentDidMount() {
+    const token = queryString.parse(window.location.search).token
+    localStorage.setItem('userToken', token);
+
+    let isAuthenticated = token && token.length > 0 ? true : false
+
+    this.setState({
+      isAuthenticated
+    })
+
+    this.getUser(token);
   }
 
-  // componentDidMount() {
-  //   Auth.oAuthSignIn({
-  //     provider: 'facebook',
-  //     params: {resource_class: 'User'}
-  //   }).then((resp) => {
-  //       console.log(resp)
-  //   })
+  getUser = () => {
+    axios.get(`http://localhost:3000/current_user`,
+    {
+      headers: {
+        'X-User-Token': localStorage.getItem('userToken')
+      }
+    }).then(res => {
+        const user = res.data;
+        this.setState({ user });
+      })
+  }
 
-    // Auth.validateToken()
-    //   .then(function(user) {
-    //     this.setState({
-    //       username: user.username
-    //     })
-    //   }.bind(this))
-    //   .fail(function() {
-    //     console.log("SMTH WENT WRONG")
-    //     // Transition.redirect('login');
-    //   });
-//  .then(resp => {
-//    debugger;
-//  })
-  // }
-
-  // handleAuthChange = (response) => {
-  //   axios.post('http://localhost:3000/users', response)
-  //   .then(res => {
-
-  //     this.setState({
-  //       user: res.data
-  //     })
-  //   })
-  //   debugger;
-
-  // }
-
+  oauthAuthorize = () => {
+    const client_id = '3e8776599bf94d013259';
+    const redirect_uri = 'http://localhost:3000/users/auth/github/callback'; // TODO base url
+    window.location.href = "https://github.com/login/oauth/authorize?client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&scope=user:email"
+  }
 
   render() {
-// debugger;
     return (
       <div>
-        {Object.keys(this.state.user).length === 0 && <Home />}
-        {this.state.user && <Books user={this.state.user} />}
+        { this.state.isAuthenticated && <Home />}
+        { this.state.isAuthenticated && <Books user={this.state.user} />}
 
-        {/* <Login handleChange={this.handleAuthChange}/> */}
+        <button onClick={this.oauthAuthorize.bind(this)}>Github authenticate</button>
+
         <BrowserRouter>
-          <Routes user={this.state}/>
+          <Routes user={this.state.user}/>
         </BrowserRouter>
       </div>
     );

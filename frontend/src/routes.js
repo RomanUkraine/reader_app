@@ -1,40 +1,15 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-
 import Layout from './hoc/Layout';
 import Home from './components/Home/Home';
 import Books from './components/Books/Books';
 import CreateBook from './components/Books/CreateBook';
 
 class Routes extends Component  {
-//   componentDidMount = () => {
-//     const user = this.props.user
-
-
-// console.log(Object.keys(user).length === 0)
-
-
-//     if (Object.keys(user).length === 0) {
-//       this.props.history.push("/")
-//     }
-//   }
 render() {
 
-  // const authenticatedRoutes = (
-  //   <React.Fragment>
-  //     <Route path="/books" exact component={Books} />
-  //     <Route path="/add-book" exact component={CreateBook} />
-  //   </React.Fragment>
-  // )
-
-  // const guestRoute = (
-  //   <Route path="/" exact component={Home} />
-  // )
-
-
-
   return (
-    <Layout user={this.props.user}>
+    <Layout user={this.props.user} token={this.props.token}>
         <Switch>
           <Route path="/books" exact component={Books} />
           <Route path="/add-book" exact component={CreateBook} />
