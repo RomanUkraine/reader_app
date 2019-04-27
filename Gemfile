@@ -10,10 +10,10 @@ gem 'puma', '~> 3.11'
 gem 'faker'
 gem 'rack-cors'
 
-gem 'omniauth'
-gem 'omniauth-facebook'
 gem 'devise'
-gem 'devise_token_auth'
+gem 'omniauth'
+gem 'omniauth-github'
+gem 'simple_token_authentication', '~> 1.0'
 
 gem 'bootsnap', '>= 1.1.0', require: false
 

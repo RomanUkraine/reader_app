@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import BookItem from './BookItem';
 import axios from 'axios';
 
-
 class Books extends Component {
 
   state = {
@@ -11,9 +10,12 @@ class Books extends Component {
 
   componentDidMount() {
     // TODO: add BASE_URL variable
-    axios.get(`http://localhost:3000/books.json`,{
-    headers: {'access-token': 'OD5q17NG1dFVEKSuausm2A'}})
-      .then(res => {
+    axios.get(`http://localhost:3000/books.json`,
+    {
+      headers: {
+        'X-User-Token': localStorage.getItem('userToken')
+      }
+    }).then(res => {
         const books = res.data;
         this.setState({ books });
       })

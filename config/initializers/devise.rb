@@ -3,9 +3,8 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  config.omniauth :facebook, "853438291662050", "d26b7b00c8f8ba1a7ab71e01690fffb3",
-  provider_ignores_state: true
 
+  config.omniauth :github,  Rails.application.credentials.github_key,  Rails.application.credentials.github_secret, { scope: 'user', provider_ignores_state: true }
   # The secret key used by Devise. Devise uses this key to generate
   # random tokens. Changing this key will render invalid all existing
   # confirmation, reset password and unlock tokens in the database.
@@ -73,7 +72,10 @@ Devise.setup do |config|
   # given strategies, for example, `config.http_authenticatable = [:database]` will
   # enable it only for database authentication. The supported strategies are:
   # :database      = Support basic authentication with authentication key + password
-  # config.http_authenticatable = false
+  # config.http_authenticatable = true
+
+  # config.skip_session_storage = [:http_auth, :token_auth]
+
 
   # If 401 status code should be returned for AJAX requests. True by default.
   # config.http_authenticatable_on_xhr = true
