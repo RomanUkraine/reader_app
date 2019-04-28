@@ -5,8 +5,9 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: %i[github]
 
+  has_many :assigned_books
+  has_many :books, through: :assigned_books
   has_many :read_entries
-  has_many :books, through: :read_entries
 
   def self.from_omniauth(auth)
     info = auth['info']
@@ -14,7 +15,7 @@ class User < ApplicationRecord
       user.email = info['email']
       user.password = Devise.friendly_token[0, 20]
       user.first_name = info['name']
-      # user.last_name = auth['last_name']
+      # user.last_name = auth['last_name'] # TODO remove column
       user.provider = 'github'
       user.uid = auth['uid']
     end
