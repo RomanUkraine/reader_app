@@ -1,6 +1,6 @@
 class AssignedBooksController < ApplicationController
   def index
-    assigned_books = current_user.books # assigned books
+    assigned_books = current_user.books
     render json: assigned_books
   end
 

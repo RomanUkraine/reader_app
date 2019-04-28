@@ -1,5 +1,4 @@
 class ReadEntriesController < ApplicationController
-
   def create
     read_entry = current_user.read_entries.build(read_entry_params)
 

@@ -15,7 +15,6 @@ class User < ApplicationRecord
       user.email = info['email']
       user.password = Devise.friendly_token[0, 20]
       user.first_name = info['name']
-      # user.last_name = auth['last_name'] # TODO remove column
       user.provider = 'github'
       user.uid = auth['uid']
     end

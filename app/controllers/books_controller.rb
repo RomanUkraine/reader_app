@@ -5,16 +5,14 @@ class BooksController < ApplicationController
     if params[:my]
       books = current_user.books
       render json: books
-
     else
-      books = Book.all
+      books = Book.publicly_visible(current_user.id)
       render json: books
     end
   end
 
   def create
-    book = Book.new(book_params) # TODO buid for current user
-
+    book = Book.new(book_params.merge(user_id: current_user.id))
     if book.save
       render json: book
     else
@@ -25,6 +23,6 @@ class BooksController < ApplicationController
   private
 
     def book_params
-      params.require(:book).permit(:title, :description, :author)
+      params.require(:book).permit(:title, :description, :author, :public, :user_id)
     end
 end
