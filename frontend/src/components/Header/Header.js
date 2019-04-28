@@ -1,29 +1,32 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import Nav from 'react-bootstrap/Nav';
 
-class Header extends Component {
-  constructor(props) {
-    super(props)
-  }
-// TODO make pure component
-// TODO: style header
-  render() {
-    const authenticatedLinks = localStorage.getItem('userToken') !== 'undefined' ?
-      <React.Fragment>
-        <Link to={"/my-books"}>My Books</Link>
-        <Link to={"/add-book"}>Add Book</Link>
-        <Link to={"/stats"}>Read statistics</Link>
-      </React.Fragment>
-    :
-      null
+const Header = () => {
+  const authenticatedLinks = localStorage.getItem('userToken') !== 'undefined' ?
+    <React.Fragment>
+      <Nav.Item>
+        <Nav.Link href="/my-books">My Books</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="/add-book">Add a Book</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link href="/stats">Statistics</Nav.Link>
+      </Nav.Item>
+    </React.Fragment>
+  :
+    null
 
-    return(
-      <div>
-        <Link to={"/"}>Home</Link>
+  return(
+    <div>
+      <Nav>
+        <Nav.Item>
+          <Nav.Link href="/">Home</Nav.Link>
+        </Nav.Item>
         {authenticatedLinks}
-      </div>
-    )
-  }
+      </Nav>
+    </div>
+  )
 }
 
 export default Header;

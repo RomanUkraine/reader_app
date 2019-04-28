@@ -1,20 +1,15 @@
-import React, { Component } from 'react';
-
+import React from 'react';
 import Header from '../components/Header/Header';
 import Footer from '../components/Footer/Footer';
 
-
-class Layout extends Component {
-  // make pure
-  render() {
-    return(
-      <div>
-        <Header token={this.props.token}/>
-          {this.props.children}
-        <Footer />
-      </div>
-    )
-  }
+const Layout = (props) => {
+  return(
+    <div>
+      <Header token={props.token}/>
+        {props.children}
+      <Footer />
+    </div>
+  )
 }
 
 export default Layout;
