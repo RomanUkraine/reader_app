@@ -8,12 +8,18 @@ class Header extends Component {
 // TODO make pure component
 // TODO: style header
   render() {
-    // debugger;
+    const authenticatedLinks = localStorage.getItem('userToken') !== 'undefined' ?
+      <React.Fragment>
+        <Link to={"/my-books"}>My Books</Link>
+        <Link to={"/add-book"}>Add Book</Link>
+      </React.Fragment>
+    :
+      null
+
     return(
       <div>
-        HEADER
         <Link to={"/"}>Home</Link>
-        {/* {Object.keys(this.props.user).length > 0 && <Link to={"/add-book"}>Add Book</Link>} */}
+        {authenticatedLinks}
       </div>
     )
   }
