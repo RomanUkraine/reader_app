@@ -53,6 +53,8 @@ class BookItem extends Component {
 
 
   // TODO add notification after entry successfully added
+  // TODO change date format not to include hours
+  // TODO submit on Enter key press
 
   addReadEntry = (bookId) => { // TODO add base url
     axios.post('http://localhost:3000/books/' + bookId + '/read_entries' , {

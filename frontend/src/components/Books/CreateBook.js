@@ -4,18 +4,19 @@ import axios from 'axios';
 import { BASE_URL } from '../../helpers';
 
 class CreateBook extends Component {
-constructor(props) {
-  super(props)
-  this.state = {
-    title: '',
-    author: '',
-    description: '',
-    redirect: false
+  constructor(props) {
+    super(props)
+    this.state = {
+      title: '',
+      author: '',
+      description: '',
+      redirect: false
+    }
   }
-}
 
     // TODO: add error handling
     // TODO: add proptypes
+    // TODO submit on Enter key press
 
   handleTitleChange = (e) => {
     this.setState({ title: e.target.value })
@@ -31,7 +32,7 @@ constructor(props) {
 
   handleSubmit = (e) => {
     e.preventDefault();
-
+    // TODO redirect to my-books after submit
     axios.post(`${BASE_URL}books`, {
       book: {
         title: this.state.title,

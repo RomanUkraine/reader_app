@@ -1,8 +1,4 @@
 class ReadEntriesController < ApplicationController
-  def index
-    read_entries = current_user.read_entries
-    render json: read_entries
-  end
 
   def create
     read_entry = current_user.read_entries.build(read_entry_params)

@@ -12,6 +12,7 @@ class Header extends Component {
       <React.Fragment>
         <Link to={"/my-books"}>My Books</Link>
         <Link to={"/add-book"}>Add Book</Link>
+        <Link to={"/stats"}>Read statistics</Link>
       </React.Fragment>
     :
       null

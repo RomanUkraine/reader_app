@@ -18,7 +18,6 @@ class MyBooks extends Component {
         'X-User-Token': localStorage.getItem('userToken')
       }
     }).then(res => {
-      console.log(res);
         const books = res.data;
         this.setState({ books });
       })
