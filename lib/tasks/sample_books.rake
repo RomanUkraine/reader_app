@@ -7,7 +7,8 @@ namespace :sample_books do
       Book.create(
         title: Faker::Book.title,
         author: Faker::Book.author,
-        description: Faker::Quote.yoda
+        description: Faker::Quote.yoda,
+        public: true
       )
     end
   end

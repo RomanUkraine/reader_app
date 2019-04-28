@@ -1,15 +1,8 @@
 import React, { Component } from 'react';
-import Card from 'react-bootstrap/Card';
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-import InputGroup from 'react-bootstrap/InputGroup';
-import FormControl from 'react-bootstrap/FormControl';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
-import 'react-day-picker/lib/style.css';
-// TODO fix imports
-
+import { Form, Card, Modal, Button } from 'react-bootstrap';
 import axios from 'axios';
-
+import 'react-day-picker/lib/style.css';
 
 class BookItem extends Component {
   constructor(props) {
@@ -22,8 +15,6 @@ class BookItem extends Component {
     };
 
     this.handleDayChange = this.handleDayChange.bind(this);
-
-    // this.handleDayClick = this.handleDayClick.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
@@ -54,7 +45,6 @@ class BookItem extends Component {
 
   // TODO add notification after entry successfully added
   // TODO change date format not to include hours
-  // TODO submit on Enter key press
 
   addReadEntry = (bookId) => { // TODO add base url
     axios.post('http://localhost:3000/books/' + bookId + '/read_entries' , {
@@ -68,10 +58,8 @@ class BookItem extends Component {
       headers: {
         'X-User-Token': localStorage.getItem('userToken')
       }
-    }).then(res => {
+    }).then(() => {
       this.handleClose()
-        // const user = res.data;
-        // this.setState({ user });
       })
     }
 
@@ -85,12 +73,10 @@ class BookItem extends Component {
       headers: {
         'X-User-Token': localStorage.getItem('userToken')
       }
-    }).then(res => {
-      console.log(res)
-        // const user = res.data;
-        // this.setState({ user });
-      })
-    }
+    }).then((res) => {
+      // TODO flash!!!
+    })
+  }
 
   render(){
     const button = this.props.myBooks ?
@@ -102,23 +88,27 @@ class BookItem extends Component {
         Add to my books!
       </Button>
 
-
     const modal = this.props.myBooks ?
       <Modal show={ this.state.show } onHide={ this.handleClose }>
         <Modal.Header closeButton>
-          <Modal.Title>How much did you read (add book title) today?</Modal.Title>
+          <Modal.Title>How many pages of {this.props.title} did you read?</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
-          <InputGroup>
-            <p>Pick a day:</p>
-            <DayPickerInput onDayChange={ this.handleDayChange } />
+          <Form>
+            <Form.Group>
+              <Form.Label>Pick a day:</Form.Label>
+              <DayPickerInput onDayChange={ this.handleDayChange } />
+            </Form.Group>
 
-            <FormControl type="number"
-                         value={ this.state.pages }
-                         onChange={ this.handlePageChange }
-            />
-          </InputGroup>
+            <Form.Group controlId="formBasicPassword">
+              <Form.Label>Pages</Form.Label>
+              <Form.Control type="number"
+                            placeholder="Pages"
+                            onChange={ this.handlePageChange }
+              />
+            </Form.Group>
+          </Form>
         </Modal.Body>
 
         <Modal.Footer>
