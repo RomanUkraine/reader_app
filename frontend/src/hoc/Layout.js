@@ -9,7 +9,7 @@ class Layout extends Component {
   render() {
     return(
       <div>
-        <Header/>
+        <Header token={this.props.token}/>
           {this.props.children}
         <Footer />
       </div>

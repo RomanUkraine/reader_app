@@ -2,40 +2,45 @@ import React, { Component } from 'react';
 import BookItem from './BookItem';
 import axios from 'axios';
 
-class Books extends Component {
+class MyBooks extends Component {
+  constructor(props) {
+    super(props);
 
-  state = {
-    books: []
+    this.state = {
+      books: []
+    };
   }
 
   componentDidMount() {
-    // TODO: add BASE_URL variable
-    axios.get(`http://localhost:3000/books.json`,
+    axios.get('http://localhost:3000/books/?my=true', // TODO base  url
     {
       headers: {
         'X-User-Token': localStorage.getItem('userToken')
       }
     }).then(res => {
+      console.log(res);
         const books = res.data;
         this.setState({ books });
       })
   }
 
-  render() {
-    const books = this.state.books.map((book, i) => (
+  render(){
+    const myBooks = this.state.books.map((book, i) => (
       <BookItem id={book.id}
                 title={book.title}
                 description={book.description}
                 author={book.author}
                 key={i}
+                myBooks={true}
       />
     ))
-    return (
+
+    return(
       <div className={'row'}>
-        {books}
+        { myBooks }
       </div>
-    );
+    )
   }
 }
 
-export default Books;
+export default MyBooks;

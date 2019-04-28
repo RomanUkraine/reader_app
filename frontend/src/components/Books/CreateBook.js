@@ -32,10 +32,18 @@ constructor(props) {
   handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post(`${BASE_URL}/books`, {
+    axios.post(`${BASE_URL}books`, {
+      book: {
         title: this.state.title,
         author: this.state.author,
         description: this.state.description
+      }
+
+    },
+    {
+      headers: {
+        'X-User-Token': localStorage.getItem('userToken')
+      }
     })
     .then(() => {
       this.setState({
@@ -45,7 +53,7 @@ constructor(props) {
   }
 
   render() {
-
+    // TODO change inputs to bootstrap
     return(
 
       <div>

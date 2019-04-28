@@ -6,7 +6,6 @@ import Home from './components/Home/Home';
 import Books from './components/Books/Books';
 // import { BASE_URL } from './helpers';
 import queryString from 'query-string';
-
 import './App.css';
 
 class App extends Component {
@@ -15,33 +14,40 @@ class App extends Component {
 
     this.state = {
       user: {},
-      isAuthenticated: false
+      isAuthenticated: false,
+      token: ''
     };
   }
 
   componentDidMount() {
     const token = queryString.parse(window.location.search).token
-    localStorage.setItem('userToken', token);
 
-    let isAuthenticated = token && token.length > 0 ? true : false
+    if (token !== undefined) {
+      window.localStorage.setItem('userToken', token);
+    }
+
+    let isAuthenticated = localStorage.getItem('userToken') !== 'undefined' ? true : false
 
     this.setState({
-      isAuthenticated
+      isAuthenticated: isAuthenticated,
+      token: token
     })
 
-    this.getUser(token);
+    if (isAuthenticated) {
+      axios.get(`http://localhost:3000/current_user`,
+      {
+        headers: {
+          'X-User-Token': localStorage.getItem('userToken')
+        }
+      }).then(res => {
+          const user = res.data;
+          this.setState({ user });
+        })
+    }
   }
 
-  getUser = () => {
-    axios.get(`http://localhost:3000/current_user`,
-    {
-      headers: {
-        'X-User-Token': localStorage.getItem('userToken')
-      }
-    }).then(res => {
-        const user = res.data;
-        this.setState({ user });
-      })
+  componentWillUnmount () {
+    localStorage.setItem('userToken', this.state.token)
   }
 
   oauthAuthorize = () => {
@@ -51,16 +57,21 @@ class App extends Component {
   }
 
   render() {
+    const routes = this.state.isAuthenticated ?
+      <div>
+        <BrowserRouter>
+          <Routes user={this.state.user} token={this.state.token}/>
+        </BrowserRouter>
+        {/* <Books user={this.state.user} /> */}
+      </div>
+    :
+      <button onClick={this.oauthAuthorize.bind(this)}>Github authenticate</button>
+
     return (
       <div>
-        { this.state.isAuthenticated && <Home />}
-        { this.state.isAuthenticated && <Books user={this.state.user} />}
-
-        <button onClick={this.oauthAuthorize.bind(this)}>Github authenticate</button>
-
-        <BrowserRouter>
-          <Routes user={this.state.user}/>
-        </BrowserRouter>
+        { routes }
+        {/* { this.state.isAuthenticated && <Home />} */}
+        {/* { this.state.isAuthenticated && <Books user={this.state.user} />} */}
       </div>
     );
   }
