@@ -9,7 +9,7 @@ import Stats from './components/Stats/Stats';
 class Routes extends Component  {
   render() {
     return (
-      <Layout user={this.props.user} token={this.props.token}>
+      <Layout  token={this.props.token}>
           <Switch>
             <Route path="/my-books" exact render={(props) => <MyBooks {...props} token={this.props.token} />} />
             <Route path="/add-book" exact component={CreateBook} />

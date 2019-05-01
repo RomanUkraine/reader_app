@@ -8,6 +8,5 @@ Rails.application.routes.draw do
 
   resources :assigned_books
 
-  get '/current_user', to: 'users#show'
-  get '/stats',        to: 'statistics#show'
+  get '/stats', to: 'statistics#show'
 end

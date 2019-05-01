@@ -3,7 +3,10 @@ class ReadEntriesController < ApplicationController
     read_entry = current_user.read_entries.build(read_entry_params)
 
     if read_entry.save
-      render json: read_entry
+      head :no_content
+      # no content because we gather read entries onrder to get
+      # monthly read stats for user. Read entry itself is not
+      # displayed anywhere
     else
       render json: { error: read_entry.errors.full_messages }, status: 422
     end

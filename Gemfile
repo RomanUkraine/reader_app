@@ -6,7 +6,7 @@ ruby '2.5.3'
 gem 'rails', '~> 5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
-# gem 'responders'
+gem 'fast_jsonapi'
 gem 'faker'
 gem 'rack-cors'
 
@@ -21,6 +21,13 @@ group :development, :test do
   gem 'awesome_print'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry'
+end
+
+group :test do
+  gem 'rspec-rails', '~> 3.8'
+  gem 'factory_bot_rails'
+  gem 'faker'
+  gem 'shoulda-matchers'
 end
 
 group :development do

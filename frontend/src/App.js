@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { Jumbotron, Button } from 'react-bootstrap';
 import Routes from './routes';
-import axios from 'axios';
 import { BASE_URL } from './helpers';
 import queryString from 'query-string';
 import './App.css';
@@ -12,7 +11,6 @@ class App extends Component {
     super(props);
 
     this.state = {
-      user: {},
       isAuthenticated: false,
       token: ''
     };
@@ -31,18 +29,6 @@ class App extends Component {
       isAuthenticated: isAuthenticated,
       token: token
     })
-
-    if (isAuthenticated) {
-      axios.get(`${BASE_URL}/current_user`,
-      {
-        headers: {
-          'X-User-Token': localStorage.getItem('userToken')
-        }
-      }).then(res => {
-          const user = res.data;
-          this.setState({ user });
-        })
-    }
   }
 
   componentWillUnmount () {
@@ -56,11 +42,11 @@ class App extends Component {
   }
 
   render() {
-console.log(localStorage.getItem('userToken') == 'undefined')
+
     const routes = this.state.isAuthenticated ?
       <div>
         <BrowserRouter>
-          <Routes user={this.state.user} token={this.state.token}/>
+          <Routes token={this.state.token}/>
         </BrowserRouter>
       </div>
     :
