@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookItem from './BookItem';
 import axios from 'axios';
+import { BASE_URL } from '../../helpers';
 
 class MyBooks extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class MyBooks extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/books/?my=true', // TODO base  url
+    axios.get(`${BASE_URL}/books/?my=true`,
     {
       headers: {
         'X-User-Token': localStorage.getItem('userToken')
@@ -35,7 +36,7 @@ class MyBooks extends Component {
     ))
 
     return(
-      <div className={'row'}>
+      <div className='row'>
         { myBooks }
       </div>
     )

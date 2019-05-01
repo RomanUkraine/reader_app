@@ -5,7 +5,7 @@ class ReadEntriesController < ApplicationController
     if read_entry.save
       render json: read_entry
     else
-      render json: { error: read_entry.errors.full_messages }
+      render json: { error: read_entry.errors.full_messages }, status: 422
     end
   end
 
