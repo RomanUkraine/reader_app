@@ -38,7 +38,7 @@ class App extends Component {
   oauthAuthorize = () => {
     const client_id = '3e8776599bf94d013259';
     // const redirect_uri = `${BASE_URL}/users/auth/github/callback`;
-    window.location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=https://reader-app-strongsd.herokuapp.com//users/auth/github/callback&scope=user:email`
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=https://reader-app-strongsd.herokuapp.com/users/auth/github/callback&scope=user:email`
   }
 
   render() {
