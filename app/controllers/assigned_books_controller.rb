@@ -10,7 +10,7 @@ class AssignedBooksController < ApplicationController
     if assigned_book.save
       render json: assigned_book
     else
-      render json: { error: assigned_book.errors.full_messages }
+      render json: { error: assigned_book.errors.full_messages }, status: 422
     end
   end
 

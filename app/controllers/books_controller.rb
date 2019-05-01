@@ -16,7 +16,7 @@ class BooksController < ApplicationController
     if book.save
       render json: book
     else
-      render json: { error: book.errors.full_messages }
+      render json: { error: book.errors.full_messages }, status: 422
     end
   end
 

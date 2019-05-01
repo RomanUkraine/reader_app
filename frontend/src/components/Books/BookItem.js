@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DayPickerInput from 'react-day-picker/DayPickerInput';
+import DayPicker from 'react-day-picker/DayPicker';
 import { Form, Card, Modal, Button } from 'react-bootstrap';
 import { Alert, AlertContainer } from 'react-bs-notifier';
 import axios from 'axios';
@@ -15,25 +15,26 @@ class BookItem extends Component {
       showAlert: false,
       alertClass: '',
       message: '',
-      selectedDay: new Date(),
+      selectedDay: undefined,
       pages: 0
     };
-
-    this.handleDayChange = this.handleDayChange.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
   }
 
-  handleClose() {
+  handleClose = () => {
     this.setState({ showModal: false });
   }
 
-  handleShow() {
+  handleShow = () => {
     this.setState({ showModal: true });
   }
 
-  handleDayChange(day) {
-    this.setState({ selectedDay: day });
+  handleDayClick = (day, modifiers = {}) => {
+    if (modifiers.disabled) {
+      return;
+    }
+    this.setState({
+      selectedDay: modifiers.selected ? undefined : day,
+    });
   }
 
   handleShowAlert(alertClass, message=[]) {
@@ -45,22 +46,15 @@ class BookItem extends Component {
   }
 
   handleDismissAlert() {
-    this.setState({ showAlert: false });
+    this.setState({
+      showAlert: false,
+      pages: 0
+    });
   }
 
   handlePageChange = (e) => {
     this.setState({ pages: e.target.value });
   }
-
-  handleDateChange = (value, formattedValue) => {
-    this.setState({
-      dateValue: value,
-      formattedValue: formattedValue
-    });
-  }
-
-
-  // TODO change date format not to include hours
 
   addReadEntry = (bookId) => {
     axios.post(`${BASE_URL}/books/${bookId}/read_entries` , {
@@ -120,7 +114,10 @@ class BookItem extends Component {
           <Form>
             <Form.Group>
               <Form.Label>Pick a day:</Form.Label>
-              <DayPickerInput onDayChange={ this.handleDayChange } />
+              <DayPicker onDayClick={ this.handleDayClick }
+                         selectedDays={this.state.selectedDay}
+                         disabledDays={day => day > (new Date())}
+              />
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
@@ -148,7 +145,7 @@ class BookItem extends Component {
       <AlertContainer>
         <Alert type={this.state.alertClass}
                headline={this.state.alertClass === 'success' ? 'Success' : 'Error'}
-               onDismiss={() => {this.handleDismissAlert() }}
+               onDismiss={() => { this.handleDismissAlert() }}
                timeout={2000}
         >
           {this.state.message}

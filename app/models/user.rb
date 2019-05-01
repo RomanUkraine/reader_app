@@ -5,9 +5,9 @@ class User < ApplicationRecord
          :rememberable, :trackable, :validatable,
          :omniauthable, omniauth_providers: %i[github]
 
-  has_many :assigned_books
+  has_many :assigned_books, dependent: :destroy
+  has_many :read_entries, dependent: :destroy
   has_many :books, through: :assigned_books
-  has_many :read_entries
 
   def self.from_omniauth(auth)
     info = auth['info']
