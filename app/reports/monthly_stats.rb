@@ -4,15 +4,15 @@ class MonthlyStats
   end
 
   def generate # TODO fix n+1
-    arr = @user.read_entries.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
-               .map { |e| { id:    e.book.id,
-                            pages: e.pages,
-                            book: {
-                                    title:  e.book.title,
-                                    author: e.book.author
-                                  }
-                          }
-                    }
+    arr ||= @user.read_entries.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
+                  .map { |e| { id:    e.book.id,
+                               pages: e.pages,
+                               book: {
+                                        title:  e.book.title,
+                                        author: e.book.author
+                                      }
+                              }
+                        }
 
     arr.group_by { |item| item[:id] }
        .map do |id, items|

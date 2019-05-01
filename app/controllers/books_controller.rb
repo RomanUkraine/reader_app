@@ -1,20 +1,20 @@
 class BooksController < ApplicationController
   def index
-    # https://www.simplify.ba/articles/2016/06/18/creating-rails5-api-only-application-following-jsonapi-specification/
-    # TODO Follow json api specification
     if params[:my]
       books = current_user.books
-      render json: books
+      render json: BookSerializer.new(books)
     else
       books = Book.publicly_visible(current_user.id)
-      render json: books
+      render json: BookSerializer.new(books)
     end
   end
 
   def create
     book = Book.new(book_params.merge(user_id: current_user.id))
     if book.save
-      render json: book
+      head :no_content
+      # no_content because after create user is redirected to all-books
+      # page where they all are requested in a separate request
     else
       render json: { error: book.errors.full_messages }, status: 422
     end

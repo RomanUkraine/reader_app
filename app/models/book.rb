@@ -3,7 +3,6 @@ class Book < ApplicationRecord
   scope :publicly_visible, ->(id) { where(public: true).or(where(user_id: id)) }
   # because we want to show the user both public books
   # and those created by him (either public or not)
- # TODO fix scope
 
   has_many :users, through: :assigned_books, dependent: :destroy
   belongs_to :user, optional: true

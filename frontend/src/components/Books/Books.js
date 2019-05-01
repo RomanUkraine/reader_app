@@ -16,7 +16,7 @@ class Books extends Component {
         'X-User-Token': localStorage.getItem('userToken')
       }
     }).then(res => {
-        const books = res.data;
+        const books = res.data.data;
         this.setState({ books });
       })
   }
@@ -24,9 +24,9 @@ class Books extends Component {
   render() {
     const books = this.state.books.map((book, i) => (
       <BookItem id={book.id}
-                title={book.title}
-                description={book.description}
-                author={book.author}
+                title={book.attributes.title}
+                description={book.attributes.description}
+                author={book.attributes.author}
                 key={i}
       />
     ))
