@@ -5,7 +5,7 @@ class BooksController < ApplicationController
       render json: BookSerializer.new(books)
     else
       books = Book.publicly_visible(current_user.id)
-      render json: BookSerializer.new(books)
+      render json: BookSerializer.new(books), status: 200
     end
   end
 

@@ -8,7 +8,7 @@ class AssignedBooksController < ApplicationController
     assigned_book = current_user.assigned_books.build(assigned_book_params)
 
     if assigned_book.save
-      render json: assigned_book
+      head :no_content
     else
       render json: { error: assigned_book.errors.full_messages }, status: 422
     end
