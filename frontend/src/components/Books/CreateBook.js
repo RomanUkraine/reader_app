@@ -16,8 +16,7 @@ class CreateBook extends Component {
     }
   }
 
-    // TODO: add error handling
-    // TODO: add proptypes
+  // TODO: add proptypes
 
   handleTitleChange = (e) => {
     this.setState({ title: e.target.value })

@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { Jumbotron, Button } from 'react-bootstrap';
 import Routes from './routes';
 import axios from 'axios';
-import Home from './components/Home/Home';
-import Books from './components/Books/Books';
-// import { BASE_URL } from './helpers';
+import { BASE_URL } from './helpers';
 import queryString from 'query-string';
 import './App.css';
 
@@ -26,7 +25,7 @@ class App extends Component {
       window.localStorage.setItem('userToken', token);
     }
 
-    let isAuthenticated = localStorage.getItem('userToken') !== 'undefined' ? true : false
+    let isAuthenticated = localStorage.getItem('userToken') == null || localStorage.getItem('userToken') == 'undefined' ? false : true
 
     this.setState({
       isAuthenticated: isAuthenticated,
@@ -34,7 +33,7 @@ class App extends Component {
     })
 
     if (isAuthenticated) {
-      axios.get(`http://localhost:3000/current_user`,
+      axios.get(`${BASE_URL}/current_user`,
       {
         headers: {
           'X-User-Token': localStorage.getItem('userToken')
@@ -52,26 +51,33 @@ class App extends Component {
 
   oauthAuthorize = () => {
     const client_id = '3e8776599bf94d013259';
-    const redirect_uri = 'http://localhost:3000/users/auth/github/callback'; // TODO base url
-    window.location.href = "https://github.com/login/oauth/authorize?client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&scope=user:email"
+    const redirect_uri = `${BASE_URL}/users/auth/github/callback`;
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=user:email`
   }
 
   render() {
+console.log(localStorage.getItem('userToken') == 'undefined')
     const routes = this.state.isAuthenticated ?
       <div>
         <BrowserRouter>
           <Routes user={this.state.user} token={this.state.token}/>
         </BrowserRouter>
-        {/* <Books user={this.state.user} /> */}
       </div>
     :
-      <button onClick={this.oauthAuthorize.bind(this)}>Github authenticate</button>
+    <div className='text-center'>
+      <Jumbotron>
+        <h1>Please authorize in order to get access</h1>
+        <p>
+          <Button onClick={this.oauthAuthorize.bind(this)}
+                  variant="secondary">Sign in with GITHUB
+          </Button>
+        </p>
+      </Jumbotron>
+    </div>
 
     return (
       <div>
         { routes }
-        {/* { this.state.isAuthenticated && <Home />} */}
-        {/* { this.state.isAuthenticated && <Books user={this.state.user} />} */}
       </div>
     );
   }

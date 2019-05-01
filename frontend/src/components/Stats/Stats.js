@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Card from 'react-bootstrap/Card';
+import { ListGroup } from 'react-bootstrap';
 import axios from 'axios';
+import { BASE_URL } from '../../helpers';
 
 class Stats extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Stats extends Component {
   }
 
   componentDidMount() {
-    axios.get(`http://localhost:3000/stats.json`,
+    axios.get(`${BASE_URL}/stats.json`,
     {
       headers: {
         'X-User-Token': localStorage.getItem('userToken')
@@ -27,19 +28,14 @@ class Stats extends Component {
   render() {
     return (
       <div>
+        <ListGroup>
         {this.state.stats.map(stat =>
-        <React.Fragment>
-          <Card style={{ width: '15rem' }}>
-            <Card.Body>
-              <Card.Title>{ stat.book.title } by { stat.book.author }</Card.Title>
-              <Card.Text>
-                { stat.book.description }
-              </Card.Text>
-            </Card.Body>
-          </Card>
-          <p>You read {stat.pages} pages over the last month</p>
-          </React.Fragment>
+          <ListGroup.Item>
+            { stat.book.title } <cite className='blockquote-footer'> by { stat.book.author } </cite>
+            Over the last month you have read { stat.pages } pages
+          </ListGroup.Item>
         )}
+        </ListGroup>
       </div>
     );
   }

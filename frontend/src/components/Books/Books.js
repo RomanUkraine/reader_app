@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import BookItem from './BookItem';
 import axios from 'axios';
+import { BASE_URL } from '../../helpers';
 
 class Books extends Component {
 
@@ -9,8 +10,7 @@ class Books extends Component {
   }
 
   componentDidMount() {
-    // TODO: add BASE_URL variable
-    axios.get(`http://localhost:3000/books.json`,
+    axios.get(`${BASE_URL}/books.json`,
     {
       headers: {
         'X-User-Token': localStorage.getItem('userToken')
