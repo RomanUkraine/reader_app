@@ -10,7 +10,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session["devise.github_data"] = request.env["omniauth.auth"]
     end
 
-    redirect_to "https://reader-app-strongsd.herokuapp.com/?token=#{user.authentication_token}"
+    redirect_to "https://reader-app-strongsd.herokuapp.com/#/?token=#{user.authentication_token}"
   end
 
 end
