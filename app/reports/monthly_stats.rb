@@ -4,7 +4,7 @@ class MonthlyStats
   end
 
   def generate # TODO fix n+1
-    arr ||= @user.read_entries.where(date: Date.current.beginning_of_month..Date.current.end_of_month)
+    arr ||= @user.read_entries.where(date: 30.days.ago..Date.current)
                   .map { |e| { id:    e.book.id,
                                pages: e.pages,
                                book: {

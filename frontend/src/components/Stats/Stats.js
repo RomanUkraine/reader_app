@@ -32,7 +32,7 @@ class Stats extends Component {
         {this.state.stats.map(stat =>
           <ListGroup.Item>
             { stat.book.title } <cite className='blockquote-footer'> by { stat.book.author } </cite>
-            Over the last month you have read { stat.pages } pages
+            Over the last 30 days you have read { stat.pages } pages
           </ListGroup.Item>
         )}
         </ListGroup>

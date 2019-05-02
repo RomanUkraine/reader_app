@@ -7,7 +7,6 @@ gem 'rails', '~> 5.2.3'
 gem 'pg', '>= 0.18', '< 2.0'
 gem 'puma', '~> 3.11'
 gem 'fast_jsonapi'
-gem 'faker'
 gem 'rack-cors'
 
 gem 'devise'
@@ -16,6 +15,7 @@ gem 'omniauth-github'
 gem 'simple_token_authentication', '~> 1.0'
 
 gem 'bootsnap', '>= 1.1.0', require: false
+gem 'faker'
 
 group :development, :test do
   gem 'awesome_print'
@@ -26,7 +26,6 @@ end
 group :test do
   gem 'rspec-rails', '~> 3.8'
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'shoulda-matchers'
 end
 
