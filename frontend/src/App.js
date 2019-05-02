@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { Jumbotron, Button } from 'react-bootstrap';
 import Routes from './routes';
 import { BASE_URL } from './helpers';
@@ -45,9 +45,9 @@ class App extends Component {
 
     const routes = this.state.isAuthenticated ?
       <div>
-        <BrowserRouter>
+        <HashRouter>
           <Routes token={this.state.token}/>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     :
     <div className='text-center'>
